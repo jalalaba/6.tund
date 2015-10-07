@@ -8,7 +8,7 @@
 	
 	function getCarData(){
 		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
-		$stmt=$mysqli->prepare("SELECT id,user_id,number_plate,color FROM car_plates");
+		$stmt=$mysqli->prepare("SELECT id,user_id,number_plate,color FROM car_plates WHERE Deleted IS NULL");
 		$stmt->bind_result($id,$user_id_from_db,$number_plate,$color);
 		$stmt->execute();
 		
@@ -23,6 +23,8 @@
 			$car=new StdClass();
 			$car->id=$id;
 			$car->plate=$number_plate;
+			$car->color=$color;
+			$car->user_id=$user_id_from_db;
 			//lisan massiivi
 			array_push($car_array,$car);
 			//echo "<pre>";
@@ -37,5 +39,34 @@
 		$mysqli->close();
 	}
 	
+	function deleteCar($id){
+		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
+		$stmt=$mysqli->prepare("UPDATE car_plates SET Deleted=NOW() WHERE id=?");
+		$stmt->bind_param("i",$id);
+		if($stmt->execute()){
+			//sai kustutatud
+			//kustutame aadressirea tühjaks
+			header("Location:table.php");
+		}
+		
+		$stmt->close();
+		$mysqli->close();
+		
+	}
 	
+	function updateCar($id,$number_plate,$color){
+		$mysqli = new mysqli($GLOBALS["server_name"],$GLOBALS["server_username"],$GLOBALS["server_password"],$GLOBALS["database"]);
+		$stmt=$mysqli->prepare("UPDATE car_plates SET number_plate=?,color=?, WHERE id=?");
+		$stmt->bind_param("ssi",$number_plate,$color,$id);
+		if($stmt->execute()){
+			//sai kustutatud
+			//kustutame aadressirea tühjaks
+			header("Location:table.php");
+		}
+		
+		$stmt->close();
+		$mysqli->close();
+		
+		
+	}
 ?>
