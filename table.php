@@ -58,8 +58,8 @@
 				echo "<td>".$array_of_cars[$i]->user_id."</td>";
 				echo "<td>".$array_of_cars[$i]->plate."</td>";
 				echo "<td>".$array_of_cars[$i]->color."</td>";
-				echo "<td><a href='?delete".$array_of_cars[$i]->id."'>X</a></td>";
-				echo "<td><a href='?edit".$array_of_cars[$i]->id."'>edit</a></td>";
+				echo "<td><a href='?delete=".$array_of_cars[$i]->id."'>X</a></td>";
+				echo "<td><a href='?edit=".$array_of_cars[$i]->id."'>edit</a></td>";
 				echo "</tr>";
 			}
 		}
