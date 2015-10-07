@@ -6,7 +6,7 @@
 	if(isset($_GET["delete"])){
 		echo "kustutame id ".$_GET["delete"];
 		//käivitan funktsiooni,saadan kaasa id
-		deletaCar($_GET["delete"]);
+		deleteCar($_GET["delete"]);
 	}
 	
 	//salvestan andmebaasi
@@ -44,7 +44,7 @@
 				echo "<input type='hidden' name='id' value='".$array_of_cars[$i]->id."'>";
 				echo "<td>".$array_of_cars[$i]->id."</td>";
 				echo "<td>".$array_of_cars[$i]->user_id."</td>";
-				echo "<td><input name='plate_number' value='".$array_of_cars[$i]->plate."></td>";
+				echo "<td><input name='plate_number' value='".$array_of_cars[$i]->plate."'></td>";
 				echo "<td><input name='color' value='".$array_of_cars[$i]->color."'></td>";
 				echo "<td><a href='table.php'>Cancel</a></td>";
 				echo "<td><input type='submit' name='salvesta'></td>";
